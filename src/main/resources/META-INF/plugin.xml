@@ -1,0 +1,26 @@
+<idea-plugin>
+    <id>com.satotats.gradle-custom-plugin-jumper</id>
+    <name>Gradle Custom Plugins Jumper</name>
+    <vendor email="contact.satotats@gmail.com" url="https://github.com/satotats">sato_tats</vendor>
+
+    <description><![CDATA[
+    To enable jump to definition file of plugins you made...
+    ]]></description>
+
+    <!-- please see https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+        <action id="com.satotats.ClickAction" class="com.satotats.ClickAction" text="ClickAction">
+            <override-text place="MainMenu" text="Clock Action"/>
+            <mouse-shortcut keystroke="control shift alt" keymap="$default"/>
+            <add-to-group group-id="StructureViewPopupMenu" anchor="first"/>
+        </action>
+    </actions>
+</idea-plugin>
