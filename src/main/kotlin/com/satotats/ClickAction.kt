@@ -16,9 +16,9 @@ class ClickAction : AnAction() {
 
     override fun actionPerformed(e: AnActionEvent) {
         val file = e.getData(CommonDataKeys.PSI_FILE)
-        val fileName = file?.name
+        val fileName = file?.name!!
 
-        if (fileName != "build.gradle" && fileName != "build.gradle.kts") return
+        if (!fileName.endsWith(".gradle") && !fileName.endsWith(".gradle.kts")) return
         val isKotlinScript = isKotlinScript(fileName)
 
         val editor = e.getData(CommonDataKeys.EDITOR)
@@ -28,7 +28,7 @@ class ClickAction : AnAction() {
                 val nestDepth = findPluginDeclaration(elementClicked)
                 if (isCaretInPluginsScope(nestDepth)) {
                     val project = e.project!!
-                    val pluginName = elementClicked.text
+                    val pluginName = elementClicked.text.trim('"')
 
                     val pluginFile = FilenameIndex.getFilesByName(
                         project,
@@ -53,7 +53,7 @@ class ClickAction : AnAction() {
     }
 
     private fun isKotlinScript(fileName: String): Boolean {
-        return fileName.endsWith("gradle.kts")
+        return fileName.endsWith(".gradle.kts")
     }
 
     private fun withExtension(pluginName: String, isKotlinScript: Boolean): String {
@@ -61,8 +61,14 @@ class ClickAction : AnAction() {
     }
 
     private fun isElementQuoted(element: PsiElement): Boolean {
-        return element.prevLeaf(true)?.text == "\""
-                && element.nextLeaf(true)?.text == "\""
+        return isQuotedStr(element.text)
+                || (element.prevLeaf(true)?.text == "\""
+                && element.nextLeaf(true)?.text == "\"")
+    }
+
+    /** for .gradle(Groovy) file */
+    private fun isQuotedStr(str: String): Boolean {
+        return str.startsWith("\"") && str.endsWith("\"")
     }
 
     /** @return nestDepth */
