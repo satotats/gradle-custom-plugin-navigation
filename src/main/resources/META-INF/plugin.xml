@@ -19,7 +19,6 @@
         <!-- Add your actions here -->
         <action id="com.satotats.ClickAction" class="com.satotats.ClickAction" text="ClickAction">
             <override-text place="MainMenu" text="Clock Action"/>
-            <mouse-shortcut keystroke="control shift alt" keymap="$default"/>
             <add-to-group group-id="StructureViewPopupMenu" anchor="first"/>
         </action>
     </actions>
