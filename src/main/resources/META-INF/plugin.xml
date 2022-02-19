@@ -20,6 +20,11 @@
         <psi.referenceContributor language="kotlin"
                                   implementation="com.satotats.CustomGradlePluginContributor"
                                   order="first"/>
+
+        <psi.symbolReferenceProvider hostLanguage="Groovy"
+                                     hostElementClass="org.jetbrains.plugins.groovy.lang.psi.api.statements.expressions.literals.GrLiteral"
+                                     targetClass="com.satotats.GradlePluginSymbol"
+                                     implementationClass="com.satotats.GradleCustomPluginReferenceProvider"/>
     </extensions>
 
     <actions>

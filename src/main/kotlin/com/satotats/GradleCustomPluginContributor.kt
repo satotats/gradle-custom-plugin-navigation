@@ -13,34 +13,15 @@ import org.jetbrains.plugins.groovy.lang.psi.api.statements.expressions.literals
 
 class CustomGradlePluginContributor : PsiReferenceContributor() {
     override fun registerReferenceProviders(registrar: PsiReferenceRegistrar) {
-        val patterns: PsiElementPattern.Capture<GrLiteral> =
-            PlatformPatterns.psiElement(GrLiteral::class.java)
-                .inFile(
-                    PlatformPatterns.psiFile()
-                        .withName(string().endsWith(".gradle").or(string().endsWith(".gradle.kts")))
-                )
-        registrar.registerReferenceProvider(
-            patterns,
-            object : PsiReferenceProvider() {
-                override fun getReferencesByElement(
-                    element: PsiElement,
-                    context: ProcessingContext
-                ): Array<PsiReference> {
-                    println(element.text)
-                    val pluginName = element.text.trim('"')
-                    val pluginFile = FilenameIndex.getFilesByName(
-                        element.project,
-                        withExtension(pluginName),
-                        GlobalSearchScope.projectScope(element.project)
-                    ).firstOrNull()
-                    return if (pluginFile != null) arrayOf(pluginFile.reference!!) else arrayOf()
-                }
-            }
-        )
+//        val patterns: PsiElementPattern.Capture<GrLiteral> =
+//            PlatformPatterns.psiElement(GrLiteral::class.java)
+//                .inFile(
+//                    PlatformPatterns.psiFile()
+//                        .withName(string().endsWith(".gradle").or(string().endsWith(".gradle.kts")))
+//                )
+//        registrar.registerReferenceProvider(
+//            patterns,
+//            GradleCustomPluginReferenceProvider()
+//        )
     }
-
-    private fun withExtension(pluginName: String): String {
-        return "$pluginName.gradle"
-    }
-
 }
