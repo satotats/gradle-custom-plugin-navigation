@@ -14,22 +14,16 @@
     <depends>org.jetbrains.kotlin</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <psi.referenceContributor language="Groovy"
-                                  implementation="com.satotats.CustomGradlePluginContributor"
-                                  order="first"/>
-        <psi.referenceContributor language="kotlin"
-                                  implementation="com.satotats.CustomGradlePluginContributor"
-                                  order="first"/>
-
         <psi.symbolReferenceProvider hostLanguage="Groovy"
                                      hostElementClass="org.jetbrains.plugins.groovy.lang.psi.api.statements.expressions.literals.GrLiteral"
-                                     targetClass="com.satotats.GradlePluginSymbol"
-                                     implementationClass="com.satotats.GradleCustomPluginReferenceProvider"/>
+                                     targetClass="com.satotats.intellij.plugins.gradle.GradlePluginSymbol"
+                                     implementationClass="com.satotats.intellij.plugins.gradle.GradleCustomPluginReferenceProvider"/>
     </extensions>
 
     <actions>
         <!-- Add your actions here -->
-        <action id="com.satotats.ClickAction" class="com.satotats.ClickAction" text="ClickAction">
+        <action id="com.satotats.intellij.plugins.gradle.experimental.ClickAction"
+                class="com.satotats.intellij.plugins.gradle.experimental.ClickAction" text="ClickAction">
             <override-text place="MainMenu" text="Clock Action"/>
             <add-to-group group-id="StructureViewPopupMenu" anchor="first"/>
         </action>

@@ -1,4 +1,4 @@
-package com.satotats
+package com.satotats.intellij.plugins.gradle
 
 import com.intellij.model.Pointer
 import com.intellij.model.presentation.PresentableSymbol

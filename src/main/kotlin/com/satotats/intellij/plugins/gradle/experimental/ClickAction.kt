@@ -1,4 +1,4 @@
-package com.satotats
+package com.satotats.intellij.plugins.gradle.experimental
 
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
