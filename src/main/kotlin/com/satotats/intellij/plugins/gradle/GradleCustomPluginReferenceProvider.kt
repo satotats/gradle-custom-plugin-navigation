@@ -8,6 +8,7 @@ import com.intellij.model.psi.PsiSymbolReferenceProvider
 import com.intellij.model.search.SearchRequest
 import com.intellij.openapi.project.Project
 import org.jetbrains.plugins.groovy.lang.psi.api.statements.arguments.GrArgumentList
+import org.jetbrains.plugins.groovy.lang.psi.api.statements.expressions.GrMethodCall
 import org.jetbrains.plugins.groovy.lang.psi.api.statements.expressions.literals.GrLiteral
 import org.jetbrains.plugins.groovy.lang.psi.patterns.GroovyPatterns
 import org.jetbrains.plugins.groovy.lang.psi.patterns.groovyElement
@@ -32,12 +33,10 @@ class GradleCustomPluginReferenceProvider : PsiSymbolReferenceProvider {
     companion object {
         val pluginApplicationPattern = GroovyPatterns.stringLiteral().withParent(
             groovyElement<GrArgumentList>()
-            // FIXME: where is the "plugins" definition???
-//                .withParent(
-//                    GroovyMethodCallPattern.resolvesTo(
-//                        psiMethod(GradleCommonClassNames.GRADLE_API_PROJECT, "plugins")
-//                    )
-//                )
+                .withParent(
+                    groovyElement<GrMethodCall>()
+                        .withText(GroovyPatterns.string().startsWith("id"))
+                )
         )
     }
 }
