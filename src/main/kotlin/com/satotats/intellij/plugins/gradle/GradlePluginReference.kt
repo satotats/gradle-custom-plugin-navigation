@@ -19,7 +19,7 @@ class GradlePluginReference(
 
     override fun getElement() = myElement
 
-    override fun getRangeInElement() = TextRange(0, pluginName.length)
+    override fun getRangeInElement() = TextRange(1, myElement.text.length - 1)
 
     private object GradleExt {
         const val Kotlin = ".gradle.kts"
