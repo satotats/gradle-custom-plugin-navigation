@@ -1,31 +1,29 @@
 <idea-plugin>
-    <id>com.satotats.gradle-custom-plugin-jumper</id>
-    <name>Gradle Custom Plugins Jumper</name>
-    <vendor email="contact.satotats@gmail.com" url="https://github.com/satotats">sato_tats</vendor>
+    <id>com.satotats.gradle-custom-plugin-navigation</id>
+    <name>Gradle Custom Plugin Navigation</name>
+    <vendor email="" url="">sato_tats</vendor>
 
     <description><![CDATA[
-    To enable jump to definition file of plugins you made...
+    To enable to navigate to definition file of plugins you made...
     ]]></description>
 
-    <!-- please see https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html
-         on how to target different products -->
     <depends>com.intellij.modules.platform</depends>
     <depends>org.intellij.groovy</depends>
-    <depends>org.jetbrains.kotlin</depends>
+    <!--    build.kts is not supported yet-->
+    <!--     <depends>org.jetbrains.kotlin</depends>-->
 
     <extensions defaultExtensionNs="com.intellij">
-        <psi.symbolReferenceProvider hostLanguage="Groovy"
-                                     hostElementClass="org.jetbrains.plugins.groovy.lang.psi.api.statements.expressions.literals.GrLiteral"
-                                     targetClass="com.satotats.intellij.plugins.gradle.GradleCustomPluginSymbol"
-                                     implementationClass="com.satotats.intellij.plugins.gradle.GradleCustomPluginReferenceProvider"/>
+<!--        <psi.symbolReferenceProvider hostLanguage="Groovy"-->
+<!--                                     hostElementClass="org.jetbrains.plugins.groovy.lang.psi.api.statements.expressions.literals.GrLiteral"-->
+<!--                                     targetClass="com.satotats.intellij.plugins.gradle.GradleCustomPluginSymbol"-->
+<!--                                     implementationClass="com.satotats.intellij.plugins.gradle.GradleCustomPluginReferenceProvider"/>-->
     </extensions>
 
-    <actions>
-        <!-- Add your actions here -->
-        <action id="com.satotats.intellij.plugins.gradle.experimental.ClickAction"
-                class="com.satotats.intellij.plugins.gradle.experimental.ClickAction" text="ClickAction">
-            <override-text place="MainMenu" text="Clock Action"/>
-            <add-to-group group-id="StructureViewPopupMenu" anchor="first"/>
-        </action>
-    </actions>
+    <change-notes><![CDATA[
+        Version 0.1.0 - Beta release<br />
+        - Navigate to .gradle file from build.gradle(only navigation from `plugins` block is supported)<br />
+        Not supported yet(will be supported in future): <br />
+        - Navigation from an argument of the legacy `apply` method<br />
+        - Navigation between Kotlin files(.build.kts)<br />
+    ]]></change-notes>
 </idea-plugin>
