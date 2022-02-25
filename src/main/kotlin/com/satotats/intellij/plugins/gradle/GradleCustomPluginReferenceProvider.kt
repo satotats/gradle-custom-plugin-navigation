@@ -7,6 +7,8 @@ import com.intellij.model.psi.PsiSymbolReferenceHints
 import com.intellij.model.psi.PsiSymbolReferenceProvider
 import com.intellij.model.search.SearchRequest
 import com.intellij.openapi.project.Project
+import com.intellij.psi.search.FilenameIndex
+import com.intellij.psi.search.GlobalSearchScope
 import org.jetbrains.plugins.groovy.lang.psi.api.statements.arguments.GrArgumentList
 import org.jetbrains.plugins.groovy.lang.psi.api.statements.expressions.GrMethodCall
 import org.jetbrains.plugins.groovy.lang.psi.api.statements.expressions.literals.GrLiteral
@@ -25,7 +27,16 @@ class GradleCustomPluginReferenceProvider : PsiSymbolReferenceProvider {
         if (!fileName.endsWith(".gradle")) return emptyList()
 
         if (!pluginApplicationPattern.accepts(element)) return emptyList()
-        return listOf(GradlePluginReference(element))
+
+        val project = element.containingFile.originalFile.project
+        val pluginFileName = element.text.trim('\"', '\'') + GradleExtension.Groovy
+        val fileFound = FilenameIndex.getFilesByName(
+            project,
+            pluginFileName,
+            GlobalSearchScope.projectScope(project)
+        ).firstOrNull() ?: return emptyList()
+
+        return listOf(GradlePluginReference(element, fileFound))
     }
 
     override fun getSearchRequests(project: Project, target: Symbol): Collection<SearchRequest> = emptyList()
@@ -38,5 +49,10 @@ class GradleCustomPluginReferenceProvider : PsiSymbolReferenceProvider {
                         .withText(GroovyPatterns.string().startsWith("id"))
                 )
         )
+    }
+
+    private object GradleExtension {
+        const val Kotlin = ".gradle.kts"
+        const val Groovy = ".gradle"
     }
 }

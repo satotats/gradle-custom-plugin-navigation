@@ -7,32 +7,28 @@ import com.intellij.navigation.NavigatableSymbol
 import com.intellij.navigation.NavigationTarget
 import com.intellij.navigation.SymbolNavigationService
 import com.intellij.openapi.project.Project
-import com.intellij.psi.search.FilenameIndex
-import com.intellij.psi.search.GlobalSearchScope
+import com.intellij.psi.PsiFile
 import icons.GradleIcons
 import org.jetbrains.plugins.gradle.util.GradleBundle
 
 class GradlePluginSymbol(
-    private val pluginName: String,
+    private val psiFile: PsiFile,
 ) : PresentableSymbol,
     NavigatableSymbol {
+
+    private val pluginFileName = psiFile.name
 
     override fun createPointer() = Pointer.hardPointer(this)
 
     private val myPresentation = SymbolPresentation.create(
         GradleIcons.Gradle,
-        pluginName,
-        GradleBundle.message("gradle.project.0", pluginName)
+        pluginFileName,
+        GradleBundle.message("gradle.project.0", pluginFileName)
     )
 
-    override fun getNavigationTargets(project: Project): Collection<NavigationTarget> {
-        val pluginFile = FilenameIndex.getFilesByName(
-            project,
-            pluginName,
-            GlobalSearchScope.projectScope(project)
-        ).firstOrNull() ?: return emptyList()
-        return listOf(SymbolNavigationService.getInstance().psiFileNavigationTarget(pluginFile))
-    }
-
     override fun getSymbolPresentation() = myPresentation
+
+    override fun getNavigationTargets(project: Project): Collection<NavigationTarget> {
+        return listOf(SymbolNavigationService.getInstance().psiFileNavigationTarget(psiFile))
+    }
 }
