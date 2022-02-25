@@ -7,13 +7,13 @@ import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiFile
 import org.jetbrains.plugins.groovy.lang.psi.api.statements.expressions.literals.GrLiteral
 
-class GradlePluginReference(
+class GradleCustomPluginReference(
     private val myElement: GrLiteral,
     private val fileFound: PsiFile,
 ) : SingleTargetReference(), PsiSymbolReference {
 
     override fun resolveSingleTarget(): Symbol? {
-        return GradlePluginSymbol(fileFound)
+        return GradleCustomPluginSymbol(fileFound)
     }
 
     override fun getElement() = myElement

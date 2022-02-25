@@ -11,7 +11,7 @@ import com.intellij.psi.PsiFile
 import icons.GradleIcons
 import org.jetbrains.plugins.gradle.util.GradleBundle
 
-class GradlePluginSymbol(
+class GradleCustomPluginSymbol(
     private val psiFile: PsiFile,
 ) : PresentableSymbol,
     NavigatableSymbol {

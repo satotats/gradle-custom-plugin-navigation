@@ -16,7 +16,7 @@
     <extensions defaultExtensionNs="com.intellij">
         <psi.symbolReferenceProvider hostLanguage="Groovy"
                                      hostElementClass="org.jetbrains.plugins.groovy.lang.psi.api.statements.expressions.literals.GrLiteral"
-                                     targetClass="com.satotats.intellij.plugins.gradle.GradlePluginSymbol"
+                                     targetClass="com.satotats.intellij.plugins.gradle.GradleCustomPluginSymbol"
                                      implementationClass="com.satotats.intellij.plugins.gradle.GradleCustomPluginReferenceProvider"/>
     </extensions>
 

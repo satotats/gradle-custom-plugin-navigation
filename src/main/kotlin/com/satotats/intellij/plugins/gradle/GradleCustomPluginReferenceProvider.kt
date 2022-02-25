@@ -36,7 +36,7 @@ class GradleCustomPluginReferenceProvider : PsiSymbolReferenceProvider {
             GlobalSearchScope.projectScope(project)
         ).firstOrNull() ?: return emptyList()
 
-        return listOf(GradlePluginReference(element, fileFound))
+        return listOf(GradleCustomPluginReference(element, fileFound))
     }
 
     override fun getSearchRequests(project: Project, target: Symbol): Collection<SearchRequest> = emptyList()
