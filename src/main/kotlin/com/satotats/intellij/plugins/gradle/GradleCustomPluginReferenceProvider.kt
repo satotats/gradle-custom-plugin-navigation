@@ -24,18 +24,16 @@ class GradleCustomPluginReferenceProvider : PsiSymbolReferenceProvider {
 
         // proceed if the file is ".gradle" file
         val fileName = element.containingFile.originalFile.name
-        if (!fileName.endsWith(".gradle")) return emptyList()
+        if (!fileName.endsWith(GradleExtension.Groovy)) return emptyList()
 
         if (!pluginApplicationPattern.accepts(element)) return emptyList()
 
         val project = element.containingFile.originalFile.project
         val pluginFileName = element.text.trim('\"', '\'') + GradleExtension.Groovy
-        val fileFound = FilenameIndex.getFilesByName(
-            project,
+        val fileFound = FilenameIndex.getVirtualFilesByName(
             pluginFileName,
             GlobalSearchScope.projectScope(project)
         ).firstOrNull() ?: return emptyList()
-
         return listOf(GradleCustomPluginReference(element, fileFound))
     }
 
