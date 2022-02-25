@@ -13,17 +13,16 @@ repositories {
 
 compileKotlin {
     kotlinOptions {
+        // suppress warnings to use experimental features, such as PsiSymbolReference
         freeCompilerArgs = ['-Xjvm-default=enable']
     }
 }
 
-// See https://github.com/JetBrains/gradle-intellij-plugin/
+publishPlugin {
+    token = System.getenv("ORG_GRADLE_PROJECT_intellijPublishToken")
+}
+
 intellij {
     version = '2021.2.3'
-    plugins = ["Groovy", "gradle", "Kotlin", "java"]
-}
-patchPluginXml {
-    changeNotes = """
-      Add change notes here.<br>
-      <em>most HTML tags may be used</em>"""
+    plugins = ["Groovy", "gradle"] // without java, build will be failed
 }
